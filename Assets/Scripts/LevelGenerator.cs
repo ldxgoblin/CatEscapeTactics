@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class LevelGenerator : MonoBehaviour
@@ -12,7 +14,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float _speedFactor = .5f;
     
     private float Index = 0;
-
+    
     private void Start()
     {
         SpawnStartTiles();
@@ -47,5 +49,15 @@ public class LevelGenerator : MonoBehaviour
     {
         GameObject TempTile = Instantiate(tile, transform);
         TempTile.transform.position = tilePosition;
+    }
+
+    public void SetLevelSpeed(float newSpeed)
+    {
+        _currentLevelSpeed = newSpeed;
+    }
+    
+    public float GetLevelSpeed()
+    {
+        return _currentLevelSpeed;
     }
 }
