@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -11,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float _currentLevelSpeed = 4;
     [SerializeField] private float _speedFactor = .5f;
 
-    [Range(0f, 1f)] public float _catNipProbability = 0.2f; // The probability of spawning the object (0.2f = 20% chance).
+    [Range(0f, 1f)] public float _catNipProbability = 0.2f; 
     
     private float Index = 0;
     
@@ -50,7 +49,6 @@ public class LevelGenerator : MonoBehaviour
         GameObject tempTile = Instantiate(tile, transform);
         tempTile.transform.position = tilePosition;
         
-        // Call the SpawnObject method based on the spawnProbability.
         if (Random.value <= _catNipProbability)
         {
             LevelTile currentTile = tempTile.GetComponent<LevelTile>();
