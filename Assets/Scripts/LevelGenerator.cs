@@ -9,9 +9,9 @@ public class LevelGenerator : MonoBehaviour
 
     [SerializeField] private GameObject[] _tiles;
     [SerializeField] private float _currentLevelSpeed = 4;
-    
-    private int _baseSpeed = 4;
     [SerializeField] private float _speedFactor = .5f;
+
+    [Range(0f, 1f)] public float _catNipProbability = 0.2f; // The probability of spawning the object (0.2f = 20% chance).
     
     private float Index = 0;
     
@@ -47,8 +47,15 @@ public class LevelGenerator : MonoBehaviour
 
     private void SpawnTile(GameObject tile, Vector3 tilePosition)
     {
-        GameObject TempTile = Instantiate(tile, transform);
-        TempTile.transform.position = tilePosition;
+        GameObject tempTile = Instantiate(tile, transform);
+        tempTile.transform.position = tilePosition;
+        
+        // Call the SpawnObject method based on the spawnProbability.
+        if (Random.value <= _catNipProbability)
+        {
+            LevelTile currentTile = tempTile.GetComponent<LevelTile>();
+            SpawnCatNip(currentTile);
+        }
     }
 
     public void SetLevelSpeed(float newSpeed)
@@ -59,5 +66,10 @@ public class LevelGenerator : MonoBehaviour
     public float GetLevelSpeed()
     {
         return _currentLevelSpeed;
+    }
+    
+    private void SpawnCatNip(LevelTile tile)
+    {
+        tile.SpawnCatNip();
     }
 }

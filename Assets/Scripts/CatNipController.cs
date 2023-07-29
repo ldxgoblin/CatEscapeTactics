@@ -20,8 +20,7 @@ public class CatNipController : MonoBehaviour
     {
         CollisionController.OnCatNipConsumed -= ActivatePowerUp;
     }
-
-    // Call this method to activate the power-up.
+    
     private void ActivatePowerUp()
     {
         if (!_isPowerUpActive)

@@ -500,6 +500,7 @@ MonoBehaviour:
   - {fileID: 5371388168229630973, guid: a1d66ac4e7d957847b8db6eac3c7ac0a, type: 3}
   _currentLevelSpeed: 4
   _speedFactor: 0.5
+  _catNipProbability: 0.2
 --- !u!4 &1366496884
 Transform:
   m_ObjectHideFlags: 0
