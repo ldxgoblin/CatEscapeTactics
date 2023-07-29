@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7233996520225180197}
+  - component: {fileID: -6934522571005744243}
   m_Layer: 0
   m_Name: Apt_Tile
   m_TagString: Untagged
@@ -142,6 +143,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &-6934522571005744243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371388168229630973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00492ba14fdf490bb6d8695ca647c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _catNip: {fileID: 0}
 --- !u!1 &9155925180965302351
 GameObject:
   m_ObjectHideFlags: 0

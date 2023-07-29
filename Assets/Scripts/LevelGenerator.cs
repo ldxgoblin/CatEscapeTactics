@@ -1,62 +1,75 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GameObject Tile1;
-    public GameObject Tile2;
     public GameObject StartTile;
 
-    private float Index = 0;
+    [SerializeField] private GameObject[] _tiles;
+    [SerializeField] private float _currentLevelSpeed = 4;
+    [SerializeField] private float _speedFactor = .5f;
 
+    [Range(0f, 1f)] public float _catNipProbability = 0.2f; // The probability of spawning the object (0.2f = 20% chance).
+    
+    private float Index = 0;
+    
     private void Start()
     {
-        GameObject StartPlane1 = Instantiate(StartTile, transform);
-        StartPlane1.transform.position = new Vector3(7, 0, 0);
-        GameObject StartPlane2 = Instantiate(StartTile, transform);
-        StartPlane2.transform.position = new Vector3(-1, 0, 0);
-        GameObject StartPlane3 = Instantiate(StartTile, transform);
-        StartPlane3.transform.position = new Vector3(-9, 0, 0);
-        GameObject StartPlane4 = Instantiate(StartTile, transform);
-        StartPlane4.transform.position = new Vector3(-17, 0, 0);
-        GameObject StartPlane5 = Instantiate(StartTile, transform);
-        StartPlane5.transform.position = new Vector3(-25, 0, 0);
+        SpawnStartTiles();
     }
 
+    private void SpawnStartTiles()
+    {
+        float[] xPositions = { 7f, -1f, -9f, -17f, -25f };
+
+        for (int i = 0; i < xPositions.Length; i++)
+        {
+            GameObject startPlane = Instantiate(StartTile, transform);
+            startPlane.transform.position = new Vector3(xPositions[i], 0, 0);
+        }
+    }
+    
     private void Update()
     {
-        gameObject.transform.position += new Vector3(4 * Time.deltaTime, 0, 0);
+        gameObject.transform.position += new Vector3(_currentLevelSpeed * Time.deltaTime, 0, 0);
 
         if(transform.position.x >= Index)
         {
-            int RandomInt1 = Random.Range(0, 2);
-
-            if(RandomInt1 == 1)
-            {
-                GameObject TempTile1 = Instantiate(Tile1, transform);
-                TempTile1.transform.position = new Vector3(-16, 0, 0);
-            }
-            else if(RandomInt1 == 0)
-            {
-                GameObject TempTile1 = Instantiate(Tile2, transform);
-                TempTile1.transform.position = new Vector3(-16, 0, 0);
-            }
-
-            int RandomInt2 = Random.Range(0, 2);
-
-            if(RandomInt2 == 1)
-            {
-                GameObject TempTile2 = Instantiate(Tile1, transform);
-                TempTile2.transform.position = new Vector3(-24, 0, 0);
-            }
-            else if(RandomInt2 == 0)
-            {
-                GameObject TempTile2 = Instantiate(Tile2, transform);
-                TempTile2.transform.position = new Vector3(-24, 0, 0);
-            }
-
-            Index = Index + 15.95f;
+            SpawnTile(_tiles[Random.Range(0, _tiles.Length)], new Vector3(-16, 0, 0));
+            SpawnTile(_tiles[Random.Range(0, _tiles.Length)], new Vector3(-24, 0, 0));
+            
+            Index += 15.95f;
+            _currentLevelSpeed += _speedFactor;
         }
+    }
+
+    private void SpawnTile(GameObject tile, Vector3 tilePosition)
+    {
+        GameObject tempTile = Instantiate(tile, transform);
+        tempTile.transform.position = tilePosition;
+        
+        // Call the SpawnObject method based on the spawnProbability.
+        if (Random.value <= _catNipProbability)
+        {
+            LevelTile currentTile = tempTile.GetComponent<LevelTile>();
+            SpawnCatNip(currentTile);
+        }
+    }
+
+    public void SetLevelSpeed(float newSpeed)
+    {
+        _currentLevelSpeed = newSpeed;
+    }
+    
+    public float GetLevelSpeed()
+    {
+        return _currentLevelSpeed;
+    }
+    
+    private void SpawnCatNip(LevelTile tile)
+    {
+        tile.SpawnCatNip();
     }
 }
