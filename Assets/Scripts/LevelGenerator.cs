@@ -6,10 +6,9 @@ public class LevelGenerator : MonoBehaviour
     public GameObject StartTile;
 
     [SerializeField] private GameObject[] _tiles;
-    
     [SerializeField] private float _currentLevelSpeed = 4;
+    
     private int _baseSpeed = 4;
-
     [SerializeField] private float _speedFactor = .5f;
     
     private float Index = 0;
